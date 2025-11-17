@@ -16,5 +16,8 @@ Route::get('/test', function () {
 
 Route::get('/wiki/{subject}', [ArticleController::class, "show"])->name("article.show");
 
-Route::get('/wiki/{subject}/edit', [ArticleController::class, "edit"])->name("article.edit");
-Route::put('/wiki/{subject}', [ArticleController::class, "update"])->name("article.update");
+Route::middleware("no-cache")->group(function () {
+    Route::get('/wiki/{subject}/edit', [ArticleController::class, "edit"])->name("article.edit");
+    Route::get('/wiki/{subject}/edit/login', [ArticleController::class, "edit"])->name("article.login")->middleware(["auth", "verified"]);
+    Route::put('/wiki/{subject}', [ArticleController::class, "update"])->name("article.update");
+});
