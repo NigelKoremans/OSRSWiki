@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\RevisionController;
 use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,6 @@ Route::get('/test', function () {
 })->name("test");
 
 Route::get('/wiki/{subject}', [ArticleController::class, "show"]);
+
+Route::get('/wiki/{subject}/edit', [ArticleController::class, "edit"])->name("article.edit");
+Route::put('/wiki/{subject}', [ArticleController::class, "update"])->name("article.update");
