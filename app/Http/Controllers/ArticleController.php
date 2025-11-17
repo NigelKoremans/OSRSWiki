@@ -32,7 +32,12 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function update(Request $request, string $subject) {
+    public function update(Request $request, string $subject)
+    {
+        if (!$request->user()) {
+            return redirect()->route('login')->with('status', 'You must login to edit articles.');
+        }
+
         $request->validate([
             'content' => "required|string|min:1",
             'summary' => "required|string|min:1"
@@ -45,15 +50,15 @@ class ArticleController extends Controller
 
         if (e($data['content']) == $latestRevision->content) {
             return Redirect::back()
-                ->withErrors(['content' => 'No changes detected - content must be different than last revision.'])
-                ->withInput();
+                ->withErrors(['content' => 'No changes detected — content is identical to the latest revision.'])
+                ->withInput(['summary' => $data['summary']]);
         }
 
         $revision = new Revision();
         $revision->content = e($data["content"]);
         $revision->summary = $data["summary"];
         $revision->edited_at = Carbon::now();
-        $revision->edited_by = 1;
+        $revision->edited_by = $request->user()->id;
         $revision->article_id = $article->id;
 
         $revision->save();
