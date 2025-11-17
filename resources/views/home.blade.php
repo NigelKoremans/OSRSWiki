@@ -10,7 +10,7 @@
             <h2 class="text-3xl mb-2">Popular pages</h2>
             <div class="grid grid-rows-2 grid-cols-3">
                 @foreach ($popularArticles as $article)
-                <a class="bg-gray-200 mt-4 mx-4 p-5 text-center text-xl" href="/wiki/{{$article->subject}}">
+                <a class="bg-gray-200 mt-4 mx-4 p-5 text-center text-xl" href="{{ route('article.show',$article->subject) }}">
                     {{$article->subject}}
                 </a>
                 @endforeach
