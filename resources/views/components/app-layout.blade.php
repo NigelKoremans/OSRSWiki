@@ -18,14 +18,21 @@
                 <img class="w-12 h-8" src="{{ asset('img/placeholder.png') }}">
             </a>
             <a href="{{ route('test') }}">link</a>
-            <a href="">link</a>
-            <a href="">link</a>
             <search>
                 <form class=" space-x-2" action="">
                     <input class="border border-gray-900 w-40" type="text" name="search">
                     <input type="submit" value="Search">
                 </form>
             </search>
+            <div class="flex justify-between">
+                @auth
+                <p class="mr-5">Logged in as: {{ Auth::user()->name }}</p>
+                <form action="{{ route('logout') }}" method="post"><input class="cursor-pointer" type="submit" value="logout"> @csrf </form>
+                @else
+                <a class="mr-5" href="{{ route('login')}}">Login</a>
+                <a href="{{ route('register') }}">Register</a>
+                @endauth
+            </div>
         </nav>
         <main class="bg-gray-200 px-10 py-12 m-10 mx-15 min-h-90">
             {{ $slot }}
