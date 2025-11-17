@@ -1,6 +1,9 @@
 <x-app-layout>
-    <x-title>{{$article->subject}}</x-title>
-    <div>
-        {{$latestRevision->content}}
-    </div>
+    <x-title>
+        <x-slot:options>
+            <a class="text-lg text-neutral-500" href="{{ route('article.edit', [$article->subject]) }}">Edit</a>
+        </x-slot>
+        {{$article->subject}}
+    </x-title>
+    <div class="whitespace-pre-line">{!! $latestRevision->content !!}</div>
 </x-app-layout>
