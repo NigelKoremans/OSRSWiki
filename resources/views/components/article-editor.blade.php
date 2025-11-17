@@ -13,7 +13,9 @@
         </div>
         <textarea class="p-1 h-60 w-full resize-none outline-0 font-mono" name="content">{{ $slot }}</textarea>
     </div>
+    @auth
     <label class="block mt-4" for="summary">Edit summary</label>
     <input class="block bg-white shadow-sm border border-gray-300" type="text" name="summary" value="{{old('summary')}}">
-    <input class="bg-neutral-500 text-white px-4 py-1 mt-4 text-lg" onclick="submit()" type="submit" value="save">
+    <input class="cursor-pointer bg-neutral-500 text-white px-4 py-1 mt-4 text-lg" onclick="submit()" type="submit" value="save">
+    @endauth
 </form>
