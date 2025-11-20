@@ -21,7 +21,7 @@
             <search>
                 <form class=" space-x-2" action="">
                     <input class="border border-gray-900 w-40" type="text" name="search">
-                    <input type="submit" value="Search">
+                    <input class="cursor-pointer" type="submit" value="Search">
                 </form>
             </search>
             <div class="flex justify-between">

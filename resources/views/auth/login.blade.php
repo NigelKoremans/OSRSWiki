@@ -15,6 +15,6 @@
             <label for="password">Password</label>
             <input placeholder="Enter your password" class="block bg-white shadow-sm border border-gray-300" type="password" name="password" id="password">
         </div>
-        <input class="bg-neutral-500 text-white px-4 py-1 mt-4 text-lg" type="submit" value="Login">
+        <input class="bg-neutral-500 cursor-pointer text-white px-4 py-1 mt-4 text-lg" type="submit" value="Login">
     </form>
 </x-app-layout>
