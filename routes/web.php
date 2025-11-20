@@ -21,4 +21,5 @@ Route::middleware("no-cache")->group(function () {
     Route::get('/wiki/{subject}/edit/login', [ArticleController::class, "edit"])->name("article.login")->middleware(["auth", "verified"]);
     Route::put('/wiki/{subject}', [ArticleController::class, "update"])->name("article.update");
     Route::get('/wiki/{subject}/history', [RevisionController::class, "index"])->name("revision.index");
+    Route::get('/wiki/{subject}/history/{id}', [RevisionController::class, "show"])->name("revision.show");
 });
