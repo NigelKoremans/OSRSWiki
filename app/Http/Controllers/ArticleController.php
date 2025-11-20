@@ -28,7 +28,7 @@ class ArticleController extends Controller
 
         return view("edit")->with([
             "revision" => $latestRevision,
-            "article" => $article
+            "subject" => $article->subject
         ]);
     }
 
