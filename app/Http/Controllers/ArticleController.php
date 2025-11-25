@@ -15,7 +15,7 @@ class ArticleController extends Controller
         $article = Article::where('subject', '=', $subject)->firstOrFail();
         $latestRevision = $article->revisions()->orderBy('edited_at', 'desc')->firstOrFail();
 
-        return view("article")->with([
+        return view("articles.show")->with([
             'article' => $article,
             'latestRevision' => $latestRevision
         ]);
@@ -26,7 +26,7 @@ class ArticleController extends Controller
         $article = Article::where('subject', '=', $subject)->firstOrFail();
         $latestRevision = $article->revisions()->orderBy('edited_at', 'desc')->firstOrFail();
 
-        return view("edit")->with([
+        return view("articles.edit")->with([
             "revision" => $latestRevision,
             "subject" => $article->subject
         ]);
