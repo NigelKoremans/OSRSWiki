@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Revision;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class RevisionController extends Controller
 {
@@ -35,6 +36,11 @@ class RevisionController extends Controller
     public function destroy(string $subject, string $id)
     {
         $revision = Revision::findOrFail($id);
+
+        if(Revision::where('article_id', '=', $revision->article_id)->count() < 2){
+            return Redirect::back()
+                ->withErrors(['delete' => 'Cannot delete the only revision.']);
+        }
         $revision->delete();
 
         return redirect()->route("revision.index", [$subject]);
