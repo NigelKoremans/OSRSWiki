@@ -5,6 +5,9 @@
             <a class="text-lg text-neutral-500" href="{{ route('article.show', [$subject]) }}">Go back</a>
             </x-slot>
     </x-title>
+    @error('delete')
+    <div class="text-red-500 mb-2">{{$message}}</div>
+    @enderror
     @foreach ($revisions as $revision)
     <div class="flex">
         <p class="mr-3">{{ \carbon\Carbon::parse($revision->edited_at)->format('H:i, j F')}}
