@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Article extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     protected $fillable = [
         'subject',
