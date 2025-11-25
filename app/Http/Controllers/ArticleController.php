@@ -65,4 +65,39 @@ class ArticleController extends Controller
 
         return redirect()->route('article.show', $subject);
     }
+    public function create()
+    {
+        return view("articles.create");
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'subject' => "required|string|min:1",
+            'content' => "required|string|min:1"
+        ]);
+
+        if (Article::where('subject', '=', $request['subject'])->exists()) {
+            return Redirect::back()
+                ->withErrors(['subject' => 'Article with this subject already exists.'])
+                ->withInput();
+        }
+
+        $article = new Article();
+        $article->subject = $request["subject"];
+        $article->created_by = $request->user()->id;
+
+        $article->save();
+
+        $revision = new Revision();
+        $revision->content = $request["content"];
+        $revision->summary = "Created " . $request["subject"];
+        $revision->edited_at = Carbon::now();
+        $revision->edited_by = $request->user()->id;
+        $revision->article_id = $article->id;
+
+        $revision->save();
+
+        return redirect()->route("article.show", $article->subject);
+    }
 }
