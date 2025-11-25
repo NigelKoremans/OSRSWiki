@@ -15,7 +15,10 @@ class ArticleController extends Controller
         $article = Article::where('subject', '=', $subject)->firstOrFail();
         $latestRevision = $article->revisions()->orderBy('edited_at', 'desc')->firstOrFail();
 
-        return view("article")->with([
+        $article->views++;
+        $article->save();
+
+        return view("articles.show")->with([
             'article' => $article,
             'latestRevision' => $latestRevision
         ]);
@@ -26,7 +29,7 @@ class ArticleController extends Controller
         $article = Article::where('subject', '=', $subject)->firstOrFail();
         $latestRevision = $article->revisions()->orderBy('edited_at', 'desc')->firstOrFail();
 
-        return view("edit")->with([
+        return view("articles.edit")->with([
             "revision" => $latestRevision,
             "subject" => $article->subject
         ]);
@@ -51,7 +54,7 @@ class ArticleController extends Controller
         if (e($data['content']) == $latestRevision->content) {
             return Redirect::back()
                 ->withErrors(['content' => 'No changes detected — content is identical to the latest revision.'])
-                ->withInput(['summary' => $data['summary']]);
+                ->withInput();
         }
 
         $revision = new Revision();
@@ -64,5 +67,41 @@ class ArticleController extends Controller
         $revision->save();
 
         return redirect()->route('article.show', $subject);
+    }
+
+    public function create()
+    {
+        return view("articles.create");
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'subject' => "required|string|min:1",
+            'content' => "required|string|min:1"
+        ]);
+
+        if (Article::where('subject', '=', $request['subject'])->exists()) {
+            return Redirect::back()
+                ->withErrors(['subject' => 'Article with this subject already exists.'])
+                ->withInput();
+        }
+
+        $article = new Article();
+        $article->subject = $request["subject"];
+        $article->created_by = $request->user()->id;
+
+        $article->save();
+
+        $revision = new Revision();
+        $revision->content = $request["content"];
+        $revision->summary = "Created " . $request["subject"];
+        $revision->edited_at = Carbon::now();
+        $revision->edited_by = $request->user()->id;
+        $revision->article_id = $article->id;
+
+        $revision->save();
+
+        return redirect()->route("article.show", $article->subject);
     }
 }
