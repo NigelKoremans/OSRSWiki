@@ -54,7 +54,7 @@ class ArticleController extends Controller
         if (e($data['content']) == $latestRevision->content) {
             return Redirect::back()
                 ->withErrors(['content' => 'No changes detected — content is identical to the latest revision.'])
-                ->withInput(['summary' => $data['summary']]);
+                ->withInput();
         }
 
         $revision = new Revision();
