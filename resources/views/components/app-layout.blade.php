@@ -17,7 +17,7 @@
                 <h1 class="text-3xl">Wiki</h1>
                 <img class="w-12 h-8" src="{{ asset('img/placeholder.png') }}">
             </a>
-            <a href="{{ route('test') }}">link</a>
+            <a href="{{ route('article.create') }}">new article</a>
             <search>
                 <form class=" space-x-2" action="">
                     <input class="border border-gray-900 w-40" type="text" name="search">
