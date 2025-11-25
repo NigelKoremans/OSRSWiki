@@ -19,7 +19,7 @@
         <form class="ml-5" action="{{ route('revision.destroy', [$subject, $revision->id])}}" method="POST">
             @csrf
             @method('delete')
-            <button class="cursor-pointer text-red-800">Delete</button>
+            <button onclick="return confirm('Are you sure you want to delete this?');" class="cursor-pointer text-red-800">Delete</button>
         </form>
         @endif
         @endauth
