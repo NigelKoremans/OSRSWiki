@@ -68,6 +68,7 @@ class ArticleController extends Controller
 
         return redirect()->route('article.show', $subject);
     }
+
     public function create()
     {
         return view("articles.create");
