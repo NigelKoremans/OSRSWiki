@@ -10,20 +10,11 @@
             <a class="text-lg text-neutral-500" href="{{ route('revision.index', [$subject]) }}">History</a>
             <a class="text-lg text-neutral-500" href="{{ route('article.show', [$subject]) }}">Go back</a>
             </x-slot>
-            Editing: {{$subject}}</x-title>
-    <form action="{{route('article.update', $subject)}}" method="POST">
-        @method('PUT')
-        @csrf
-        @error('content')
-        <div class="text-red-500 mb-2">{{$message}}</div>
-        @enderror
-        <x-article-editor>
+            Editing: {{$subject}}
+        </x-title>
+
+        <x-article-editor :$subject>
             {{ htmlspecialchars_decode($revision->content) }}
         </x-article-editor>
-        @auth
-        <label class="block mt-4" for="summary">Edit summary</label>
-        <input class="block bg-white shadow-sm border border-gray-300" type="text" name="summary" value="{{old('summary')}}">
-        <input class="cursor-pointer bg-neutral-500 text-white px-4 py-1 mt-4 text-lg" onclick="submit()" type="submit" value="save">
-        @endauth
-    </form>
+
 </x-app-layout>

@@ -12,7 +12,7 @@
         Editing: {{$subject}}
     </x-title>
 
-    <x-article-editor>
+    <x-article-editor :$subject>
         {{ htmlspecialchars_decode($revision->content) }}
     </x-article-editor>
 </x-app-layout>
