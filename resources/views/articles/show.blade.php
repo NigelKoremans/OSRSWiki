@@ -6,5 +6,7 @@
         </x-slot>
         {{$article->subject}}
     </x-title>
-    <div class="whitespace-pre-line">{!! $latestRevision->content !!}</div>
+    <x-markdown>
+        {!! $latestRevision->content !!}
+    </x-markdown>
 </x-app-layout>
