@@ -51,14 +51,14 @@ class ArticleController extends Controller
 
         $data = $request->all();
 
-        if (e($data['content']) == $latestRevision->content) {
+        if ($data['content'] == $latestRevision->content) {
             return Redirect::back()
                 ->withErrors(['content' => 'No changes detected — content is identical to the latest revision.'])
                 ->withInput();
         }
 
         $revision = new Revision();
-        $revision->content = e($data["content"]);
+        $revision->content = $data["content"];
         $revision->summary = $data["summary"];
         $revision->edited_at = Carbon::now();
         $revision->edited_by = $request->user()->id;
