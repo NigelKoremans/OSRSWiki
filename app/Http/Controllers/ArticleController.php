@@ -42,8 +42,8 @@ class ArticleController extends Controller
         }
 
         $request->validate([
-            'content' => "required|string|min:1",
-            'summary' => "required|string|min:1"
+            'content' => "required|string|min:1|max:2000000000",
+            'summary' => "required|string|min:1|max:255"
         ]);
 
         $article = Article::where('subject', '=', $subject)->firstOrFail();
@@ -77,8 +77,8 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subject' => "required|string|min:1",
-            'content' => "required|string|min:1"
+            'subject' => "required|string|min:1|max:255",
+            'content' => "required|string|min:1|max:2000000000"
         ]);
 
         if (Article::where('subject', '=', $request['subject'])->exists()) {

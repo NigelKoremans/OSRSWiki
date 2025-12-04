@@ -1,9 +1,33 @@
-<div class="bg-white">
-    <div class="bg-neutral-500 text-white text-2xl pl-3 py-0.5 select-none flex space-x-3">
-        <div class="font-bold">B</div>
-        <div class="italic">I</div>
-        <div class="underline">U</div>
-        <div class="line-through">S</div>
+<form action="{{route('article.update', $subject)}}" method="POST">
+    @method('PUT')
+    @csrf
+    @error('content')
+    <div class="text-red-500 mb-2">{{$message}}</div>
+    @enderror
+    <div class="bg-white">
+        <div class="bg-neutral-500 text-white text-2xl pl-3 py-0.5 select-none flex space-x-3">
+            <div class="font-bold">B</div>
+            <div class="italic">I</div>
+            <div class="underline">U</div>
+            <div class="line-through">S</div>
+            <button type="button" onclick="OpenUploadForm()">Upload image</button>
+        </div>
+        <textarea class="p-1 h-150 w-full resize-none outline-0 font-mono" name="content">{{ $slot }}</textarea>
     </div>
-    <textarea class="p-1 h-150 w-full resize-none outline-0 font-mono" name="content">{{ $slot }}</textarea>
-</div>
+    @if (request()->routeIs('article.edit'))
+    @auth
+    <label class="block mt-4" for="summary">Edit summary</label>
+    <input class="block bg-white shadow-sm border border-gray-300" type="text" name="summary" value="{{old('summary')}}">
+    <input class="cursor-pointer bg-neutral-500 text-white px-4 py-1 mt-4 text-lg" onclick="submit()" type="submit" value="save">
+    @endauth
+    @endif
+</form>
+<form id="uploadForm" class="hidden absolute bg-amber-50 h-10 w-10" action="" method="post">
+    form
+</form>
+<script>
+    function OpenUploadForm() {
+        let uploadForm = document.getElementById("uploadForm");
+        uploadForm.classList = "";
+    }
+</script>
