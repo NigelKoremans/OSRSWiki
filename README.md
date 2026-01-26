@@ -1,6 +1,8 @@
-# OSRS wiki
-This is a unofficial project for an OSRS wiki.
-This was made for a school project and is not affiliated with jagex.
+# Wiki
+This is my little wiki project.
 
 ## Features
-None (The wiki hasn't been made yet)
+- Articles
+- Editing & History
+- Uploading images
+- Markdown
